@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubleConverter", "DoubleConverter\DoubleConverter.csproj", "{74078FB8-9266-40D4-9070-875E985659BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubleConverter.Tests", "DoubleConverter.Tests\DoubleConverter.Tests.csproj", "{0DADCC48-1F8C-47A8-80D8-01085400CFED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{74078FB8-9266-40D4-9070-875E985659BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74078FB8-9266-40D4-9070-875E985659BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74078FB8-9266-40D4-9070-875E985659BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74078FB8-9266-40D4-9070-875E985659BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DADCC48-1F8C-47A8-80D8-01085400CFED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DADCC48-1F8C-47A8-80D8-01085400CFED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DADCC48-1F8C-47A8-80D8-01085400CFED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DADCC48-1F8C-47A8-80D8-01085400CFED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F269E68E-EBCF-429A-BB55-73613216B1C4}
+	EndGlobalSection
+EndGlobal
