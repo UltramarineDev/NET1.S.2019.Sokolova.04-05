@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DoubleConverter
 {
@@ -7,6 +8,7 @@ namespace DoubleConverter
     /// </summary>
     public static class DoubleExtensions
     {
+
         /// <summary>
         /// Extension method that check if the array is null
         /// </summary>
@@ -57,6 +59,77 @@ namespace DoubleConverter
             }
 
             return arrayOfStrings;
+        }
+
+        /// <summary>
+        /// Gets string of bits according to IEEE 754
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static string GetIEEEBinaryString(this double number)
+        {
+
+            int sign = 0;
+            if (number < 0)
+            {
+                sign = 1;
+                number = -number;
+            }
+
+            var integerPart = (ulong)Math.Truncate(number);
+
+            List<byte> bitsOfIntegerPart = ConvertToBits(integerPart);
+
+            int exponent = 1023 + bitsOfIntegerPart.Count - 1;
+            List<byte> bitsOfExponenta = ConvertToBits(exponent);
+
+            int lenghtOfDouble = 63 - bitsOfExponenta.Count - (bitsOfIntegerPart.Count - 1);
+            var doublePart = number - integerPart;
+            List<byte> bitsOfMantissa = new List<byte>();
+
+            for (int i = 0; i < lenghtOfDouble; i++)
+            {
+                doublePart = doublePart * 2;
+
+                if ((ulong)Math.Truncate(doublePart) == 1)
+                {
+                    bitsOfMantissa.Add(1);
+                    doublePart = doublePart - (ulong)Math.Truncate(doublePart);
+                    continue;
+                }
+
+                bitsOfMantissa.Add(0);
+            }
+
+            string stringResult = sign.ToString();
+
+            for (int i = 0; i < bitsOfExponenta.Count; i++)
+            {
+                stringResult += bitsOfExponenta[i].ToString();
+            }
+
+            for (int i = 1; i < bitsOfIntegerPart.Count; i++)
+            {
+                stringResult += bitsOfIntegerPart[i].ToString();
+            }
+
+            for (int i = 0; i < bitsOfMantissa.Count; i++)
+            {
+                stringResult += bitsOfMantissa[i].ToString();
+            }
+
+            return stringResult;
+        }
+
+        private static List<byte> ConvertToBits(ulong numberDivided)
+        {
+            List<byte> bits = new List<byte>();
+            while (numberDivided > 0)
+            {
+                bits.Insert(0, (byte)((numberDivided) & 1));
+                numberDivided = numberDivided >> 1;
+            }
+            return bits;
         }
     }
 }
