@@ -64,8 +64,8 @@ namespace DoubleConverter
         /// <summary>
         /// Gets string of bits according to IEEE 754
         /// </summary>
-        /// <param name="number"></param>
-        /// <returns></returns>
+        /// <param name="number">input number</param>
+        /// <returns>string with number in binary format</returns>
         public static string GetIEEEBinaryString(this double number)
         {
 
@@ -81,7 +81,7 @@ namespace DoubleConverter
             List<byte> bitsOfIntegerPart = ConvertToBits(integerPart);
 
             int exponent = 1023 + bitsOfIntegerPart.Count - 1;
-            List<byte> bitsOfExponenta = ConvertToBits(exponent);
+            List<byte> bitsOfExponenta = ConvertToBits((ulong)exponent);
 
             int lenghtOfDouble = 63 - bitsOfExponenta.Count - (bitsOfIntegerPart.Count - 1);
             var doublePart = number - integerPart;

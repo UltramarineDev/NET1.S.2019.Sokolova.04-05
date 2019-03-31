@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DoubleExtensionsTests.cs" />
+    <Compile Include="PolynomialTests.cs" />
     <Compile Include="TransformerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
