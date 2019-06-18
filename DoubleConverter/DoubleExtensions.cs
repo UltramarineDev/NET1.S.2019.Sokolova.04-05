@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace DoubleConverter
 {
@@ -68,68 +69,36 @@ namespace DoubleConverter
         /// <returns>string with number in binary format</returns>
         public static string GetIEEEBinaryString(this double number)
         {
+            var convertion = new ConversionDoubleToLong { DoubleBitsForm = number };
+            long numberLong = convertion.LongBitsForm;
+            int countOfBit = sizeof(double) * 8;
+            char[] resultArray = new char[countOfBit];
+            resultArray[0] = numberLong < 0 ? '1' : '0';
 
-            int sign = 0;
-            if (number < 0)
+            for (int i = countOfBit - 2, j = 1; i >= 0; i--, j++)
             {
-                sign = 1;
-                number = -number;
+                resultArray[j] = (numberLong & (1L << i)) != 0 ? '1' : '0';
             }
 
-            var integerPart = (ulong)Math.Truncate(number);
-
-            List<byte> bitsOfIntegerPart = ConvertToBits(integerPart);
-
-            int exponent = 1023 + bitsOfIntegerPart.Count - 1;
-            List<byte> bitsOfExponenta = ConvertToBits((ulong)exponent);
-
-            int lenghtOfDouble = 63 - bitsOfExponenta.Count - (bitsOfIntegerPart.Count - 1);
-            var doublePart = number - integerPart;
-            List<byte> bitsOfMantissa = new List<byte>();
-
-            for (int i = 0; i < lenghtOfDouble; i++)
-            {
-                doublePart = doublePart * 2;
-
-                if ((ulong)Math.Truncate(doublePart) == 1)
-                {
-                    bitsOfMantissa.Add(1);
-                    doublePart = doublePart - (ulong)Math.Truncate(doublePart);
-                    continue;
-                }
-
-                bitsOfMantissa.Add(0);
-            }
-
-            string stringResult = sign.ToString();
-
-            for (int i = 0; i < bitsOfExponenta.Count; i++)
-            {
-                stringResult += bitsOfExponenta[i].ToString();
-            }
-
-            for (int i = 1; i < bitsOfIntegerPart.Count; i++)
-            {
-                stringResult += bitsOfIntegerPart[i].ToString();
-            }
-
-            for (int i = 0; i < bitsOfMantissa.Count; i++)
-            {
-                stringResult += bitsOfMantissa[i].ToString();
-            }
-
-            return stringResult;
+            return new string(resultArray);
         }
 
-        private static List<byte> ConvertToBits(ulong numberDivided)
+        [StructLayout(LayoutKind.Explicit)]
+        private struct ConversionDoubleToLong
         {
-            List<byte> bits = new List<byte>();
-            while (numberDivided > 0)
+            [FieldOffset(0)]
+            private readonly long long64bit;
+
+            [FieldOffset(0)]
+            private double double64bit;
+
+            public long LongBitsForm => long64bit;
+            public double DoubleBitsForm
             {
-                bits.Insert(0, (byte)((numberDivided) & 1));
-                numberDivided = numberDivided >> 1;
+                set => double64bit = value;
             }
-            return bits;
         }
     }
 }
+
+
