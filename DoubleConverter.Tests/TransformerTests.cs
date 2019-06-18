@@ -15,6 +15,9 @@ namespace DoubleConverter.Tests
         [TestCase(328, ExpectedResult = "three two eight")]
         [TestCase(0, ExpectedResult = "zero")]
         [TestCase(651, ExpectedResult = "six five one")]
+        [TestCase(double.NaN, ExpectedResult = "not a number")]
+        [TestCase(double.NegativeInfinity, ExpectedResult = "number is infinity")]
+        [TestCase(double.PositiveInfinity, ExpectedResult = "number is infinity")]
         public string TransformToWordsTests(double number)
             => Transformer.TransformToWords(number);
     }
