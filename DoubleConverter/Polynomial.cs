@@ -7,7 +7,7 @@ namespace DoubleConverter
     /// </summary>
     public class Polynomial
     {
-        private readonly double[] coefficients;
+        private readonly double[] coefficients = { };
 
         /// <summary>
         /// Initializes a new instance of the Polynomial class
