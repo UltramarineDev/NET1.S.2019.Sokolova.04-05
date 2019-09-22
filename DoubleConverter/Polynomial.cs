@@ -97,6 +97,9 @@ namespace DoubleConverter
         /// <returns>the result of addition</returns>
         public static Polynomial operator +(Polynomial polynomialFirst, Polynomial polynomialSecond)
         {
+            if (ReferenceEquals(polynomialFirst, null)) throw new ArgumentNullException($"{polynomialSecond} polynomial is null");
+            if (ReferenceEquals(polynomialSecond, null)) throw new ArgumentNullException($"{polynomialFirst} polynomial is null");
+
             int maxLenght = Math.Max(polynomialFirst.coefficients.Length, polynomialSecond.coefficients.Length);
 
             var polynomialAfterAddition = new Polynomial(new double[maxLenght]);
@@ -151,12 +154,9 @@ namespace DoubleConverter
         /// <returns>true if operands of the method are equal, false otherwise</returns>
         public static bool operator ==(Polynomial polynomialFirst, Polynomial polynomialSecond)
         {
-            if (polynomialFirst.Equals(polynomialSecond))
-            {
-                return true;
-            }
-
-            return false;
+            if (ReferenceEquals(polynomialFirst, polynomialSecond)) return true;
+            if (ReferenceEquals(polynomialFirst, null)) return false;
+            return polynomialFirst.Equals(polynomialSecond); 
         }
 
         /// <summary>
@@ -167,12 +167,8 @@ namespace DoubleConverter
         /// <returns></returns>
         public static bool operator !=(Polynomial polynomialFirst, Polynomial polynomialSecond)
         {
-            if (!polynomialFirst.Equals(polynomialSecond))
-            {
-                return true;
-            }
+            return !(polynomialFirst.Equals(polynomialSecond));
 
-            return false;
         }
 
         /// <summary>

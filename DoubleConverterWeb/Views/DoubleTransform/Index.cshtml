@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@Styles.Render("~/Content/css")
+<h1>Double Converter</h1><br /><br />
+
+<form action="@Url.Action("Result", "DoubleTransform")" method="post">
+
+    <div>
+        <h4>Enter Double</h4>
+        <input type="text" name="inputDouble" />
+    </div>
+
+    <div>
+        <h4>Choose option</h4>
+
+        <input type="text" list="options" id="TransformOptions" name="TransformOptions">
+
+        <datalist id="options">
+            <option value="Transform to word"></option>
+            <option value="Get IEEE format"></option>
+        </datalist>
+    </div>
+    <br />
+    <button type="submit" class="doubleConverter_btn">Result</button>
+</form>

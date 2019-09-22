@@ -37,6 +37,7 @@ namespace DoubleConverter.Tests
             return polynomial.GetHashCode();
         }
 
+        [Test]
         public void OverrideOperatorMultiplyByNumberTests_MultiplyByZero_NewInstance()
         {
             Polynomial polynomialFirst = new Polynomial(new double[] { -5, 0, 123, 6.45, 9, -9.9675, -21, 43.9 });
@@ -45,6 +46,27 @@ namespace DoubleConverter.Tests
             Assert.IsTrue(expected.Equals(actual));
         }
 
+        [Test]
+        public void OverrideOperatorAddTwoPolynomiusTests_OrdinaryValues_NewInstance()
+        {
+            Polynomial polynomialFirst = new Polynomial(new double[] { -5, 0, 123, 6.45, 9, -9.9675, -21, 43.9 });
+            Polynomial polynomialSecond = new Polynomial(new double[] { 5, 0, 123, 6.45, 9, -9.9675, 2.1, 43.9 });
+
+            Polynomial expected = new Polynomial(new double[] { 0, 0, 246, 13.9, 18, -19.935, -18.9, 87.8 });
+
+            Polynomial actual = polynomialFirst + polynomialSecond;
+            Assert.IsTrue(expected.Equals(actual));
+        }
+
+        [Test]
+        public void OverrideOperatorAddTwoPolynomiusTests_OneParameterIsNull_ThrowArgumentNullException()
+        {
+            var polynomialFirst = new Polynomial(new double[] { 1, 1, 1 });
+            Polynomial polynomialSecond = null;
+            //Assert.Throws<ArgumentNullException>(() =>(polynomialFirst + null));
+        }
+
+        [Test]
         public void OverrideOperatorMultiplyByNumberTests_MultiplyByPositiveDouble_NewInstance()
         {
             Polynomial polynomialFirst = new Polynomial(new double[] { 1, 1, 1, 1, 3, -9, 87.8 });
@@ -53,6 +75,7 @@ namespace DoubleConverter.Tests
             Assert.IsTrue(expected.Equals(actual));
         }
 
+        [Test]
         public void OverrideOperatorMultiplyByNumberTests_MultiplyByNegativeDouble_NewInstance()
         {
             Polynomial polynomialFirst = new Polynomial(new double[] { 0, -5, 123, -9, 6.43 });

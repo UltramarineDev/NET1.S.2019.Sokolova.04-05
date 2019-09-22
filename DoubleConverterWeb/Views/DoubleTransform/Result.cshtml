@@ -1,0 +1,19 @@
+﻿@model DoubleConverterWeb.Models.DoubleTransformModel
+@{
+    ViewBag.Title = "Result";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<h3>Result:</h3> @ViewBag.Result
+@{
+    var inputDouble = Model.InputValue;
+    var option = "Get IEEE fomat";
+    if (!Model.IsGetIEEE) { option = "Transform to word"; }
+}
+
+<h3>You entered:</h3>
+<p>@inputDouble</p>
+<p>@option</p>
+<div>
+    <h5>@Html.ActionLink("Back to home page", "Index")</h5>
+</div>
